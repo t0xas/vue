@@ -1,1 +1,6 @@
-"# vue"  git init git add README.md git commit -m "first commit" git remote add origin https://github.com/t0xas/vue.git git push -u origin master
+"# vue" 
+
+USAGE     <asz-star-raiting count="5" input="#asz-star-raiting"></asz-star-raiting>
+input - is id for input.
+count - is count raiting items
+
