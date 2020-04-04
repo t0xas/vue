@@ -1,6 +1,6 @@
-#VUE  ASZ STAR RAITING 
+VUE  ASZ STAR RAITING 
 
-#####USAGE:
+USAGE:
 ```
 <asz-star-raiting count="5" input="#asz-star-raiting"></asz-star-raiting>
 ```
