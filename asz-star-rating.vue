@@ -7,7 +7,7 @@
 </template>
 <script>
     export default {
-        name: "asz-star-raiting",
+        name: "asz-star-rating",
         props: ['count', 'input'],
         data: function () {
             let elements = [];
@@ -56,7 +56,6 @@
         }
     }
 </script>
-
 <style scoped>
     span {
         content: ' ';
