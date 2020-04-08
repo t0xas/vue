@@ -23,7 +23,8 @@
                 cs = 'default';
             }
             return {
-                cursorStyle: cs
+                cursorStyle: cs,
+                items: this.items
             }
         },
         methods: {
@@ -37,7 +38,7 @@
                 }
             },
             mouseOver: function (data) {
-                if(this.static == undefined) {
+                if(this.static === undefined) {
                     for (let i = 0; i < this.count; i++) {
                         if (i <= data) {
                             this.items[i].done = true;
@@ -48,7 +49,7 @@
                 }
             },
             mouseOut: function () {
-                if(this.static == undefined) {
+                if(this.static === undefined) {
                     this.items.forEach(function (item, index) {
                         if (!item.click) {
                             item.done = false;
@@ -57,7 +58,7 @@
                 }
             },
             mouseClick: function (data) {
-                if(this.static == undefined) {
+                if(this.static === undefined) {
                     document.querySelector(this.input).value = parseInt(data) + 1;
                     for (let i = 0; i < this.count; i++) {
                         if (i <= data) {
