@@ -1,48 +1,68 @@
 <template>
     <div @mouseout="mouseOut()">
-        <div title="Сбросить" class="drop" @click="dropClick">&times;</div>
-        <span v-for="(item,index) in items" :class="{ 'active': item.done }" :key="index" @mouseover="mouseOver(index)"
+        <div v-show="input" title="Сбросить" class="drop" @click="dropClick">&times;</div>
+        <span :style="{ cursor: cursorStyle }"  v-for="(item,index) in items" :class="{ 'active': item.done }" :key="index" @mouseover="mouseOver(index)"
               @click="mouseClick(index)"></span>
     </div>
 </template>
 <script>
     export default {
-        name: "asz-star-rating",
-        props: ['count', 'input'],
+        name: "asz-star-raiting",
+        props: ['count', 'input', 'static', 'value'],
         data: function () {
-            let elements = [];
+            let cs = 'pointer';
+            this.items = [];
             for (let i = 0; i < this.count; i++) {
-                elements.push({
+                this.items.push({
                     done: false,
                     click: false
                 });
             }
+            if(this.static == 'true') {
+                this.markRating(this.value);
+                cs = 'default';
+            }
             return {
-                items: elements,
+                cursorStyle: cs
             }
         },
         methods: {
-            mouseOver: function (data) {
+            markRating: function (count) {
                 for (let i = 0; i < this.count; i++) {
-                    if (i <= data) {
+                    if (i < count) {
                         this.items[i].done = true;
                     } else {
                         this.items[i].done = false;
                     }
                 }
             },
-            mouseOut: function () {
-                this.items.forEach(function (item, index) {
-                    if (!item.click) {
-                        item.done = false;
+            mouseOver: function (data) {
+                if(this.static == undefined) {
+                    for (let i = 0; i < this.count; i++) {
+                        if (i <= data) {
+                            this.items[i].done = true;
+                        } else {
+                            this.items[i].done = false;
+                        }
                     }
-                })
+                }
+            },
+            mouseOut: function () {
+                if(this.static == undefined) {
+                    this.items.forEach(function (item, index) {
+                        if (!item.click) {
+                            item.done = false;
+                        }
+                    })
+                }
             },
             mouseClick: function (data) {
-                document.querySelector(this.input).value=parseInt(data)+1;
-                for (let i = 0; i < this.count; i++) {
-                    if (i <= data) {
-                        this.items[i].click = true;
+                if(this.static == undefined) {
+                    document.querySelector(this.input).value = parseInt(data) + 1;
+                    for (let i = 0; i < this.count; i++) {
+                        if (i <= data) {
+                            this.items[i].click = true;
+                        }
                     }
                 }
             },
@@ -82,11 +102,12 @@
         width: 17px;
         height: 17px;
         font-weight: bold;
-        font-size: 15px;
+        font-size: 14px;
         padding: 0;
         box-sizing: border-box;
     }
     div.drop:hover {
         background: red;
+        color: #fff;
     }
 </style>
